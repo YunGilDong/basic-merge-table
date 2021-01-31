@@ -1,59 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import TextField, {ChkBox, Sg3TxtField} from './CellComp';
 import "./BasicTable.scss";
-
-class TextField extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            row: props.row,
-            colIdx: props.colIdx,
-            value: props.value,
-            cellType: props.cellType,
-        }
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        // value가 다를경우만 render!
-        if(nextState.value === this.state.value) {
-            return false;
-        }
-        return true;
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        //props이 바뀌면 state update        
-
-        if(prevProps.value != this.props.value) {
-             this.setState({
-                 value: this.props.value,
-             })
-         } 
-    }
-
-    onChange = (e) => {
-        this.setState({
-            value: e.target.value,
-        })
-
-        const {row, colIdx, value} = this.state;
-        // update props data (row, col)
-        if(typeof this.props.updateTableData!="undefined") {
-            //console.log("field : ", row, colIdx, value);
-            this.props.updateTableData(row, colIdx, e.target.value);
-        }
-    }
-
-    render() {
-        if(this.state.row === 0 && this.state.colIdx==='state1') {
-            console.log("state : ", this.state.value);
-        }
-        return(
-            <input type="text" className="tTxt2" value={this.state.value} onChange={this.onChange} />
-        )
-    }
-}
 
 class BasicMergeTable extends React.Component {
   constructor(props) {
@@ -61,7 +10,7 @@ class BasicMergeTable extends React.Component {
 
     this.passRowColIdx = [];
     this.propsRows = []; // shouldComponentUpdate 비교용도
-    this.tableData = [];
+    this.tableData = [];    // 실시간 테이블 데이터 관리
 
     this.state = {
       selectedIdx: 0,
@@ -93,7 +42,6 @@ class BasicMergeTable extends React.Component {
             })
             this.tableData.push(rowData);
         })
-
       }
 
       // table data 요청이 있을경우 props에 데이터 전달
@@ -134,8 +82,6 @@ class BasicMergeTable extends React.Component {
 
     const key = String(rowIdx) + String(colKey);
     if (cellType === "text") {
-     
-
       return (
         <TextField 
             row={rowIdx}
@@ -146,6 +92,42 @@ class BasicMergeTable extends React.Component {
         />
       );
     } 
+    else if(cellType === "checkbox") {
+      if (cellType === "checkbox") {
+        let isChecked = value === 1 ? true : false;
+  
+        return (
+          <ChkBox
+            checked={isChecked}
+            row={rowIdx}
+            colIdx={colKey}
+            cellType={cellType}
+            updateTableData={this.updateTableData}
+          />
+        );
+      }
+    }
+    else if (cellType === "sg3") {
+      return (
+        //value
+        <Sg3TxtField
+          //refVal={this.inputRef[rowIdx][colKey]}
+          value={value}
+          row={rowIdx}          
+          colIdx={colKey}
+          cellType={cellType}
+          updateTableData={this.updateTableData}
+          onMoveRow={this.onMoveRow}
+          onMoveCol={this.onMoveCol}
+        />
+      );
+    }
+    else if (cellType === "value") {
+      return value;
+    }
+    else if (cellType === "col") {
+      return <div>{value} </div>;
+    }
   };
 
   onTDClick = (e, row, colKey) => {
@@ -231,7 +213,7 @@ class BasicMergeTable extends React.Component {
       <div style={{ height: "100%" }}>
         <div className="tcontainer" style={containerSy}>
           <table
-            className="tMergeTable tFixedHeader"
+            className="tMergeTable"
             style={{ minWidth: tableMinWidth }}
           >
             <thead
@@ -241,17 +223,17 @@ class BasicMergeTable extends React.Component {
             >
               {this.props.columns.map((cols, rowIdx) => {
                 let colTRstyle = "ttr";
-                if (
-                  typeof this.props.colVisible != "undefined" &&
-                  this.props.colVisible.length > 0
-                ) {
+                if (typeof this.props.colVisible != "undefined" && this.props.colVisible.length > 0) {
                   if (this.props.colVisible[rowIdx] === 0) {
                     colTRstyle = "disnone";
                   }
                 }
 
+                let stickyPos = 30*rowIdx;
+
+
                 return (
-                  <tr className={colTRstyle} key={rowIdx}>
+                  <tr className={colTRstyle} key={rowIdx} >
                     {cols.map((col, colIdx) => {
                       let colStyle = col.width;
                       if (col.width === "auto") {
@@ -278,7 +260,7 @@ class BasicMergeTable extends React.Component {
                                 : "",
                               "theader tth"
                             )}
-                            style={{ width: colStyle }}
+                            style={{ width: colStyle,  position: "sticky", top:stickyPos}}
                             key={key}
                             rowSpan={rSpan}
                             colSpan={cSpan}
@@ -292,8 +274,8 @@ class BasicMergeTable extends React.Component {
                 );
               })}
             </thead>
-          </table>
-          <table className="tMergeTable" style={{ minWidth: tableMinWidth }}>
+          {/* </table>
+          <table className="tMergeTable" style={{ minWidth: tableMinWidth }}> */}
             <tbody className="ttbody">
               {this.props.rows.map((row, rowIdx) => {
                 //if(this.props.colorFocusRows[])

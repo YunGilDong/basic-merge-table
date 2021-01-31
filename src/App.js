@@ -9,7 +9,8 @@ const column1 = [
   {id: "ppc",  text: "PPC제어", type: "value", width: "10%", rowSpan: { r: 0, c: 0, count: 2 }},
   {id: "state",text: "상태", type: "value", width: "24%", rowSpan: { r: 0, c: 1, count: 2 }, colSpan: { r: 0, c: 1, count: 2 }},
   {id: "aring",text: "A링", type: "value", width: "36%", colSpan: { r: 0, c: 3, count: 3 }},
-  {id: "bring",text: "B링", type: "value", width: "150px",colSpan: { r: 0, c: 6, count: 3 }}
+  {id: "bring",text: "B링", type: "value", width: "150px",colSpan: { r: 0, c: 6, count: 3 }},
+  {id: "chk",text: "chk", type: "checkbox", width: "50px",}
 ];
 const column2 = [
   { id: "ppc", text: "1", type: "text", width: "10%" },
@@ -23,20 +24,20 @@ const column2 = [
 
   { id: "bHold", text: "B-Hold", type: "text", width: "50px" },
   { id: "bOff", text: "B-Off", type: "text", width: "50px" },
-  { id: "bJmp", text: "B-Jmp", type: "text", width: "50px" }
+  { id: "bJmp", text: "B-Jmp", type: "sg3", width: "50px" },
+  {id: "chk",text: "chk", type: "checkbox", width: "50px",}
 ];
 
 const rows = [
-  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능2", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능3", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능4", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능5", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능6", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능7", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능8", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },
-  { ppc: "불가능9", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" },  
-  { ppc: "불가능10", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: "jmp" }
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 1, chk: 1 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 1, chk: 0 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 1, chk: 0 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 1, chk: 1 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 0, chk: 1 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 4, chk: 0 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 2, chk: 0 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 5, chk: 1 },
+  { ppc: "불가능1", state1: "Standby", state2: "긴급", aHold: "Hold", aOff: "Off", aJmp: "jmp", bHold: "Hold", bOff: "Off", bJmp: 8, chk: 0 },
  
 ];
 
